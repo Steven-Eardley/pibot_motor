@@ -20,9 +20,9 @@ def get_char():
 
 print "Calibrate the track speeds. The result will be a +/- offset for Motor1, the right track." \
       "\nThe robot will start to move forwards, with equal motor speeds. Use the +/- keys until the" \
-      "robot drives in a straight line. End the program to stop the robot and print the offset."
+      "robot drives in a straight line. Press q to end the program to stop the robot and print the offset."
 
-raw_input("Press any key to continue, or ctrl-c to quit.")
+raw_input("\nPress enter key to continue, or ctrl-c to quit without testing the offset.")
 
 pico = PicoBorgRev()
 pico.Init()
@@ -37,8 +37,12 @@ while True:
             offset += OFFSET_INCREMENT
         elif direction == '_' or direction == '-':
             offset -= OFFSET_INCREMENT
+	elif direction == 'q':
+	    raise KeyboardInterrupt
+	
+	print "{:+.2f}".format(offset)
 
     except KeyboardInterrupt:
         pico.SetMotors(0)
-        print "Done. The offset is {:+.2f}".format(offset)
+        print "Done. The final offset is {:+.2f}".format(offset)
         sys.exit(0)
