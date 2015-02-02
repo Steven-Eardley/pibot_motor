@@ -8,7 +8,7 @@ def go_straight(distance):
     :param distance: Distance to travel, in millimetres. +ve for forwards, -ve for backwards
     :return: 0 for success; 1 for failure
     """
-    print "str:\t{0}mm".format(distance)
+    print "straight:\t{0}mm".format(distance)
 
 def rotate(degrees):
     """
@@ -16,7 +16,7 @@ def rotate(degrees):
     :param degrees: Number of degrees to rotate, +ve for clockwise, -ve for anticlockwise
     :return: 0 for success; 1 for failure
     """
-    print "rot:\t{0} deg".format(degrees)
+    print "rotate:\t{0} deg".format(degrees)
 
 def rotate_min(heading):
     """

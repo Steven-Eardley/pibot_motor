@@ -37,11 +37,10 @@ while True:
             offset += OFFSET_INCREMENT
         elif direction == '_' or direction == '-':
             offset -= OFFSET_INCREMENT
-	elif direction == 'q':
-	    raise KeyboardInterrupt
-	
-	print "{:+.2f}".format(offset)
+        elif direction == 'q':
+            raise KeyboardInterrupt
 
+        print "{:+.2f}".format(offset)
     except KeyboardInterrupt:
         pico.SetMotors(0)
         print "Done. The final offset is {:+.2f}".format(offset)
