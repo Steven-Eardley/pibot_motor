@@ -3,7 +3,8 @@ Control the robot via a socket.
 """
 import zmq
 import dill
-import primitive_moves
+import Moves
+import Robot
 from decorators import expect_kb_interrupt
 
 # Used in tests
@@ -22,7 +23,7 @@ class TcpListener:
         self.socket.connect("tcp://{0}:{1}".format(listen_host, listen_port))
         self.socket.setsockopt_string(zmq.SUBSCRIBE, subscribe_str)
 
-        self.comm_stack = primitive_moves.CommStack()
+        self.comm_stack = Robot.CommStack()
 
         self.listen()
 
@@ -52,7 +53,6 @@ class TcpSender:
         # List of commands to send next
         self.commands = []
 
-    @expect_kb_interrupt
     def send(self, comms=None):
         """ Send commands given, or those currently in the send list """
         if not comms or type(comms) is not list:
@@ -82,7 +82,7 @@ def listen_test():
     sck.connect("tcp://{0}:{1}".format(LISTEN_HOST, LISTEN_PORT))
     sck.setsockopt_string(zmq.SUBSCRIBE, SUBSCRIBE_STR)
 
-    cs = primitive_moves.CommStack()
+    cs = Robot.CommStack()
 
     while True:
         received = sck.recv_pyobj()
@@ -107,7 +107,7 @@ def publish_test():
     for i in range(0, 10):
         commands = []
         for j in range(1, randint(1, 8)):
-            commands.append(lambda: primitive_moves.go_straight(randint(1, 20)))
+            commands.append(lambda: Moves.go_straight(distance=randint(1, 20)))
 
         sck.send_pyobj(dill.dumps(commands))
         print "iteration {0}: send {1} commands".format(i, len(commands))
