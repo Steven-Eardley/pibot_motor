@@ -9,7 +9,10 @@ def go_straight(speed=50, distance=0):
     :param distance: Distance to travel, in millimetres. +ve for forwards, -ve for backwards
     :return: 0 for success; 1 for failure
     """
+    power = speed_to_power(speed)
     r = Robot.get_robot()
+    r.ctl.SetMotor1(power + Robot.R_OFFSET)
+    r.ctl.SetMotor2(power)
     print "straight:\t{0}mm at {1}% speed".format(distance, speed)
 
 def rotate(speed=50, degrees=0):
@@ -68,5 +71,5 @@ if __name__ == "__main__":
         lambda: rotate_min(heading=300)
         ]
 
-    r = Robot.get_robot(init_commands=control_sequence)
-    r.cs.exec_stack(wait_time=1)
+    test_robot = Robot.get_robot(init_commands=control_sequence)
+    test_robot.cs.exec_stack(wait_time=1)

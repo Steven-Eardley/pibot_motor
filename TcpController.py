@@ -13,7 +13,7 @@ from time import sleep
 
 LISTEN_HOST = "localhost"
 LISTEN_PORT = 22201
-SUBSCRIBE_STR = u""             # This means we will subscrible to all messages over this port.
+SUBSCRIBE_STR = u""             # This means we will subscribe to all messages over this port.
 
 
 class TcpListener:

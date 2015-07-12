@@ -8,7 +8,7 @@ except ImportError:
     ON_PI = False
 
 # The right motor power offset, as calculated by calibrate_tracks.py
-OFFSET = 0
+R_OFFSET = 0
 
 # The top motor power setting we'll allow the pibot to reach
 MAX_POWER = 0.75
@@ -74,11 +74,15 @@ class CommStack(Queue):
         :param wait_time: number of seconds to sleep between actions
         :return: 0 for success, 1 for failure
         """
+        res = []
         while not self.empty():
             com = self.get()
             try:
                 return_value = com()
+                res.append(return_value)
             except AttributeError:
-                print "No action for {0}".format(com)
+                pass                            # Ignore commands we can't run
             sleep(wait_time)
-        return 0
+
+        # Return failure if any command has failed.
+        return int(reduce(lambda x, y: x and y, res))
