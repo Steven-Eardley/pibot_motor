@@ -33,7 +33,7 @@ def rotate_min(heading):
 class CommStack(Queue):
 
     @classmethod
-    def with_coms(cls, comms):
+    def with_commands(cls, comms):
         comstack = cls()
         for com in comms:
             comstack.put(com)
@@ -48,7 +48,10 @@ class CommStack(Queue):
         """
         while not self.empty():
             com = self.get()
-            return_value = com()
+            try:
+                return_value = com()
+            except AttributeError:
+                print "No action for {0}".format(com)
             sleep(wait_time)
         return 0
 
