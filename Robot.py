@@ -8,7 +8,7 @@ except ImportError:
     ON_PI = False
 
 # The right motor power offset, as calculated by calibrate_tracks.py
-R_OFFSET = 0
+R_OFFSET = -0.05
 
 # The top motor power setting we'll allow the pibot to reach
 MAX_POWER = 0.75
