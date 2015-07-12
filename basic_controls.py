@@ -33,7 +33,7 @@ if __name__ == '__main__':
     pico.Init()
     R_SPEED = 0
     L_SPEED = 0
-    SPEED_INCREMENT = 0.25
+    SPEED_INCREMENT = 0.1
     offset = -0.05
     while True:
         try:
@@ -42,20 +42,20 @@ if __name__ == '__main__':
 
             key = get_char()
             if key == 'w' or key == 'W':
-                R_SPEED += SPEED_INCREMENT
-            elif key == 's' or key == 'S':
-                R_SPEED -= SPEED_INCREMENT
-            if key == 'o' or key == 'O':
                 L_SPEED += SPEED_INCREMENT
-            elif key == 'k' or key == 'K':
+            elif key == 's' or key == 'S':
                 L_SPEED -= SPEED_INCREMENT
+            if key == 'o' or key == 'O':
+                R_SPEED += SPEED_INCREMENT
+            elif key == 'k' or key == 'K':
+                R_SPEED -= SPEED_INCREMENT
             elif key == ' ':
                 L_SPEED = 0
                 R_SPEED = 0
             elif key == 'q':
                 raise KeyboardInterrupt
 
-            print "{:+.2f} {:+.2f}".format(L_SPEED, R_SPEED)
+            print "Left: {:+.2f}\tRight: {:+.2f}".format(L_SPEED, R_SPEED)
         except KeyboardInterrupt:
             pico.SetMotors(0)
             print "Done."
